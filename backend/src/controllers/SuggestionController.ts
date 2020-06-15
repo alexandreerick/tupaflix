@@ -3,9 +3,19 @@ import knex from "../database/connection";
 
 class SuggestionController {
   async index(req: Request, res: Response) {
+    // const { id } = req.params;
+
     const suggestions = await knex("movie_suggestion").select("*");
 
-    res.json(suggestions);
+    const genres = await knex("genres").join(
+      "suggestion_genres",
+      "genres.id",
+      "=",
+      "suggestion_genres.genre_id"
+    );
+    // .where("suggestion_genres.genre_id", id);
+
+    res.json({ suggestions, genres });
   }
 
   async create(req: Request, res: Response) {
