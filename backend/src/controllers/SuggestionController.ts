@@ -3,7 +3,6 @@ import knex from "../database/connection";
 
 class SuggestionController {
   async index(req: Request, res: Response) {
-
     const suggestions = await knex("movie_suggestion").select("*");
 
     const genres = await knex("genres").join(
@@ -12,13 +11,15 @@ class SuggestionController {
       "=",
       "suggestion_genres.genre_id"
     );
-    
-    const serializedSuggestions = suggestions.map(suggestion => {
-      const s_genres = genres.filter(genre => genre.suggestion_id === suggestion.id);
+
+    const serializedSuggestions = suggestions.map((suggestion) => {
+      const s_genres = genres.filter(
+        (genre) => genre.suggestion_id === suggestion.id
+      );
       suggestion.s_genres = s_genres;
-      
+
       return suggestion;
-    })
+    });
 
     res.json({ serializedSuggestions });
   }
@@ -56,7 +57,7 @@ class SuggestionController {
   }
 
   async delete(req: Request, res: Response) {
-    const { id } = req.body;
+    const { id } = req.params;
 
     await knex("movie_suggestion").where("id", id).delete();
 

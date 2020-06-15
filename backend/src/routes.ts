@@ -16,6 +16,6 @@ routes.post("/suggestion", suggestionController.create);
 // Listar todas as sugestões de filme
 routes.get("/suggestion", suggestionController.index);
 // Deletar sugestão
-routes.delete("/suggestion", suggestionController.delete);
+routes.delete("/suggestion/:id", suggestionController.delete);
 
 export default routes;
