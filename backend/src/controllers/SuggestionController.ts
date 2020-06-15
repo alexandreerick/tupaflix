@@ -3,7 +3,6 @@ import knex from "../database/connection";
 
 class SuggestionController {
   async index(req: Request, res: Response) {
-    // const { id } = req.params;
 
     const suggestions = await knex("movie_suggestion").select("*");
 
@@ -13,9 +12,15 @@ class SuggestionController {
       "=",
       "suggestion_genres.genre_id"
     );
-    // .where("suggestion_genres.genre_id", id);
+    
+    const serializedSuggestions = suggestions.map(suggestion => {
+      const s_genres = genres.filter(genre => genre.suggestion_id === suggestion.id);
+      suggestion.s_genres = s_genres;
+      
+      return suggestion;
+    })
 
-    res.json({ suggestions, genres });
+    res.json({ serializedSuggestions });
   }
 
   async create(req: Request, res: Response) {
