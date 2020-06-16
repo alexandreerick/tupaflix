@@ -1,0 +1,129 @@
+#page-home {
+  height: 100vh;
+
+  background: url("../../assets/bg-home.svg") no-repeat 900px center;
+  background-size: 700px;
+}
+
+#page-home .container {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* padding: 0 30px; */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#page-home .container header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 48px 0 0;
+}
+
+#page-home .container header img {
+  width: 200px;
+}
+
+#page-home header a {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-home header a svg {
+  margin-left: 16px;
+  color: var(--primary-color);
+}
+
+#page-home .container main {
+  flex: 1;
+  max-width: 560px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#page-home .container main h1 {
+  font-size: 50px;
+  color: var(--title-color);
+}
+
+#page-home .container main p {
+  font-size: 24px;
+  margin-top: 24px;
+  line-height: 38px;
+}
+
+#page-home .container main a {
+  width: 100%;
+  max-width: 360px;
+  height: 72px;
+  background: var(--primary-color);
+  border-radius: 8px;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  margin-top: 40px;
+}
+
+#page-home .container main a span {
+  display: block;
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+#page-home .container main a span svg {
+  color: #fff;
+  width: 20px;
+  height: 20px;
+}
+
+#page-home .container main a strong {
+  flex: 1;
+  text-align: center;
+  color: #fff;
+}
+
+#page-home .container main a:hover {
+  background: #ad2b34;
+}
+
+@media (max-width: 900px) {
+  #page-home .container {
+    align-items: center;
+    text-align: center;
+  }
+
+  #page-home .container header {
+    margin: 48px auto 0;
+  }
+
+  #page-home .container main {
+    align-items: center;
+  }
+
+  #page-home .container main h1 {
+    font-size: 42px;
+  }
+
+  #page-home .container main p {
+    font-size: 24px;
+  }
+}
