@@ -63,6 +63,14 @@ class SuggestionController {
 
     return res.status(204).send();
   }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+
+    await knex("movie_suggestion").where("id", id).update("watched", 1);
+
+    return res.status(200).send();
+  }
 }
 
 export default SuggestionController;
