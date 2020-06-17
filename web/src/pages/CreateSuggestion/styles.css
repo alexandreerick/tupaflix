@@ -1,0 +1,160 @@
+#page-create-suggestion {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+}
+
+#page-create-suggestion header {
+  margin-top: 48px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#page-create-suggestion header img {
+  width: 200px;
+}
+
+#page-create-suggestion header a {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-create-suggestion header a svg {
+  margin-right: 16px;
+  color: var(--primary-color);
+}
+
+#page-create-suggestion form {
+  margin: 80px auto;
+  padding: 64px;
+  max-width: 730px;
+  background: #302f2f;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#page-create-suggestion form h1 {
+  font-size: 36px;
+  text-align: center;
+}
+
+#page-create-suggestion form fieldset {
+  margin-top: 64px;
+  min-inline-size: auto;
+  border: 0;
+}
+
+#page-create-suggestion form legend {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+#page-create-suggestion form legend h2 {
+  font-size: 24px;
+}
+
+#page-create-suggestion form legend span {
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--text-color);
+}
+
+#page-create-suggestion form .field {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+#page-create-suggestion form .field input[type="text"] {
+  flex: 1;
+  background: #f0f0f5;
+  border-radius: 8px;
+  border: 0;
+  padding: 16px 24px;
+  font-size: 16px;
+  color: #6c6c80;
+}
+
+#page-create-suggestion form .field input::placeholder {
+  color: #a0a0b2;
+}
+
+#page-create-suggestion form .field label {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+#page-create-suggestion form .field :disabled {
+  cursor: not-allowed;
+}
+
+#page-create-suggestion form button {
+  width: 260px;
+  height: 56px;
+  background: var(--primary-color);
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border: 0;
+  align-self: flex-end;
+  margin-top: 40px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+#page-create-suggestion form button:hover {
+  background: #ad2b34;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  list-style: none;
+}
+
+.items-grid li {
+  background: #1a1a1a;
+  border: 2px solid #363636;
+  height: 180px;
+  border-radius: 8px;
+  padding: 32px 24px 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.items-grid li span {
+  flex: 1;
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  color: var(--title-color);
+}
+
+.items-grid li.selected {
+  background: #f17a82;
+  border: 2px solid #dc2e39;
+}
