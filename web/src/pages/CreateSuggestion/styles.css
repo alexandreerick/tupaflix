@@ -7,7 +7,7 @@
 
 #page-create-suggestion header {
   margin-top: 48px;
-
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,10 +98,6 @@
   margin-bottom: 8px;
 }
 
-#page-create-suggestion form .field :disabled {
-  cursor: not-allowed;
-}
-
 #page-create-suggestion form button {
   width: 260px;
   height: 56px;
@@ -139,9 +135,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   text-align: center;
-
   cursor: pointer;
 }
 

@@ -66,7 +66,7 @@ const CreateSuggestion: React.FC = () => {
     setSuccessMessage(true);
 
     setTimeout(() => {
-      history.push("/");
+      history.push("/watched");
     }, 3000);
   };
 

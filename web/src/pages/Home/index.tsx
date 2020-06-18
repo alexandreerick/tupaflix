@@ -12,8 +12,8 @@ const Home: React.FC = () => {
       <div className="container">
         <header>
           <img src={logo} alt="Tupã" />
-          <Link to="/watched">
-            Ver filmes assistidos
+          <Link to="/suggestions-list">
+            Ver sugestões de filmes
             <FiArrowRight />
           </Link>
         </header>

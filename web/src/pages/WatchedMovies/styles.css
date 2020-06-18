@@ -1,0 +1,51 @@
+#page-watched-movies {
+  height: 100vh;
+}
+
+#page-watched-movies .container {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* padding: 0 30px; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#page-watched-movies header {
+  margin-top: 48px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#page-watched-movies header img {
+  width: 200px;
+}
+
+#page-watched-movies header a {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-watched-movies header a svg {
+  margin-right: 16px;
+  color: var(--primary-color);
+}
+
+#page-watched-movies .container .list-movies {
+  margin: 80px auto;
+  padding: 64px;
+  max-width: 1200px;
+  background: #302f2f;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+}
