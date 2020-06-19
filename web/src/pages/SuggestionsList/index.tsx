@@ -25,8 +25,16 @@ const SuggestionsList: React.FC = () => {
     });
   }, []);
 
-  const handleDeleteSuggestion = (id: number) => {
-    console.log(`Você clicou no item de id ${id}`);
+  const handleDeleteSuggestion = async (id: number) => {
+    try {
+      await api.delete(`suggestion/${id}`);
+
+      setSuggestionItems(
+        suggestionItems.filter((suggestionItem) => suggestionItem.id !== id)
+      );
+    } catch (err) {
+      alert("Erro ao deletar a sugestão, tente novamente.");
+    }
   };
 
   const handleAcceptSuggestion = () => {
