@@ -14,7 +14,7 @@ class WatchedMovieController {
       "suggestion_genres.genre_id"
     );
 
-    const serializedSuggestions = watchedMovies.map((watchedMovie) => {
+    watchedMovies.map((watchedMovie) => {
       const s_genres = genres.filter(
         (genre) => genre.suggestion_id === watchedMovie.id
       );
@@ -23,7 +23,14 @@ class WatchedMovieController {
       return watchedMovie;
     });
 
-    res.json({ serializedSuggestions });
+    const serializedFinal = watchedMovies.map((watchedMovie) => {
+      return {
+        ...watchedMovie,
+        image_url: `http://localhost:3333/uploads/${watchedMovie.image}`,
+      };
+    });
+
+    res.json({ serializedFinal });
   }
 }
 

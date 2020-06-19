@@ -12,7 +12,7 @@ class SuggestionController {
       "suggestion_genres.genre_id"
     );
 
-    const serializedSuggestions = suggestions.map((suggestion) => {
+    suggestions.map((suggestion) => {
       const s_genres = genres.filter(
         (genre) => genre.suggestion_id === suggestion.id
       );
@@ -21,7 +21,14 @@ class SuggestionController {
       return suggestion;
     });
 
-    res.json({ serializedSuggestions });
+    const serializedFinal = suggestions.map((suggestion) => {
+      return {
+        ...suggestion,
+        image_url: `http://localhost:3333/uploads/${suggestion.image}`,
+      };
+    });
+
+    res.json({ serializedFinal });
   }
 
   async create(req: Request, res: Response) {
@@ -30,7 +37,7 @@ class SuggestionController {
     const trx = await knex.transaction();
 
     const suggestion = {
-      image: "image-fake",
+      image: req.file.filename,
       name,
       description,
     };
@@ -39,12 +46,15 @@ class SuggestionController {
 
     const suggestion_id = insertedIds[0];
 
-    const suggestionGenre = genres.map((genre_id: number) => {
-      return {
-        genre_id,
-        suggestion_id,
-      };
-    });
+    const suggestionGenre = genres
+      .split(",")
+      .map((genre: string) => Number(genre.trim()))
+      .map((genre_id: number) => {
+        return {
+          genre_id,
+          suggestion_id,
+        };
+      });
 
     await trx("suggestion_genres").insert(suggestionGenre);
 
