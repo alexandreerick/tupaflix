@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiArrowRight, FiTrash2, FiCheck } from "react-icons/fi";
+import api from "../../services/api";
 
 import logo from "../../assets/logo.png";
 import "./styles.css";
 
-import poster from "../../tmp/batman-poster.jpg";
+interface Suggestions {
+  id: number;
+  image_url: string;
+  name: string;
+  description: string;
+  s_genres: {
+    title: string;
+  }[];
+}
 
 const SuggestionsList: React.FC = () => {
+  const [suggestionItems, setSuggestionItems] = useState<Suggestions[]>([]);
+
+  useEffect(() => {
+    api.get("suggestion").then((response) => {
+      setSuggestionItems(response.data.serializedFinal);
+    });
+  }, []);
+
+  const handleDeleteSuggestion = (id: number) => {
+    console.log(`Você clicou no item de id ${id}`);
+  };
+
+  const handleAcceptSuggestion = () => {
+    console.log("Você clicou no V verde");
+  };
+
   return (
     <div id="page-suggestions-list">
       <div className="container">
@@ -22,101 +47,41 @@ const SuggestionsList: React.FC = () => {
         <div className="list-movies">
           <h1>Sugestões</h1>
           <ul className="grid-list">
-            <li>
-              <div className="card-image">
-                <img src={poster} alt="Batman" />
-              </div>
-              <div className="card-content">
-                <p className="card-title">Batman: O Cavaleiro das Trevas</p>
-                <div className="card-info">
-                  <p>Ação, Suspense</p>
+            {suggestionItems.map((suggestionItem) => (
+              <li key={suggestionItem.id}>
+                <div className="card-image">
+                  <img
+                    src={suggestionItem.image_url}
+                    alt={suggestionItem.name}
+                  />
                 </div>
-                <div className="card-buttons">
-                  <FiTrash2 size={25} color="#dc2e39" />
-                  <FiCheck size={25} color="#34cb79" />
+                <div className="card-content">
+                  <p className="card-title">{suggestionItem.name}</p>
+                  <p className="card-description">
+                    {suggestionItem.description}
+                  </p>
+                  <div className="card-info">
+                    <p>
+                      {suggestionItem.s_genres
+                        .map((genre) => genre.title)
+                        .join(", ")}
+                    </p>
+                  </div>
+                  <div className="card-buttons">
+                    <FiTrash2
+                      onClick={() => handleDeleteSuggestion(suggestionItem.id)}
+                      size={25}
+                      color="#dc2e39"
+                    />
+                    <FiCheck
+                      onClick={handleAcceptSuggestion}
+                      size={25}
+                      color="#34cb79"
+                    />
+                  </div>
                 </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card-image">
-                <img src={poster} alt="Batman" />
-              </div>
-              <div className="card-content">
-                <p className="card-title">Batman: O Cavaleiro das Trevas</p>
-                <div className="card-info">
-                  <p>Ação, Suspense</p>
-                </div>
-                <div className="card-buttons">
-                  <FiTrash2 size={25} color="#dc2e39" />
-                  <FiCheck size={25} color="#34cb79" />
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card-image">
-                <img src={poster} alt="Batman" />
-              </div>
-              <div className="card-content">
-                <p className="card-title">Batman: O Cavaleiro das Trevas</p>
-                <div className="card-info">
-                  <p>Ação, Suspense</p>
-                </div>
-                <div className="card-buttons">
-                  <FiTrash2 size={25} color="#dc2e39" />
-                  <FiCheck size={25} color="#34cb79" />
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card-image">
-                <img src={poster} alt="Batman" />
-              </div>
-              <div className="card-content">
-                <p className="card-title">Batman: O Cavaleiro das Trevas</p>
-                <div className="card-info">
-                  <p>Ação, Suspense</p>
-                </div>
-                <div className="card-buttons">
-                  <FiTrash2 size={25} color="#dc2e39" />
-                  <FiCheck size={25} color="#34cb79" />
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card-image">
-                <img src={poster} alt="Batman" />
-              </div>
-              <div className="card-content">
-                <p className="card-title">Batman: O Cavaleiro das Trevas</p>
-                <div className="card-info">
-                  <p>Ação, Suspense</p>
-                </div>
-                <div className="card-buttons">
-                  <FiTrash2 size={25} color="#dc2e39" />
-                  <FiCheck size={25} color="#34cb79" />
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card-image">
-                <img src={poster} alt="Batman" />
-              </div>
-              <div className="card-content">
-                <p className="card-title">Batman: O Cavaleiro das Trevas</p>
-                <div className="card-info">
-                  <p>Ação, Suspense</p>
-                </div>
-                <div className="card-buttons">
-                  <FiTrash2 size={25} color="#dc2e39" />
-                  <FiCheck size={25} color="#34cb79" />
-                </div>
-              </div>
-            </li>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

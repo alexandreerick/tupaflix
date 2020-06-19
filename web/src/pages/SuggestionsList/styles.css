@@ -91,11 +91,18 @@
   color: var(--title-color);
 }
 
+.card-description {
+  margin-top: 10px;
+}
+
 .card-info {
+  text-align: center;
   margin-top: 10px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 8px;
-  padding: 3px 0;
+  max-height: 50px;
+  min-width: 150px;
+  padding: 5px 0;
 }
 
 .card-buttons {
