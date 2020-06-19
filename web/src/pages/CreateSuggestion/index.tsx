@@ -7,6 +7,7 @@ import "./styles.css";
 import logo from "../../assets/logo.png";
 
 import SuccessMessage from "../../components/SuccesMessage";
+import Dropzone from "../../components/Dropzone";
 
 interface Genres {
   id: number;
@@ -18,6 +19,7 @@ const CreateSuggestion: React.FC = () => {
   const [genres, setGenres] = useState<Genres[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<number[]>([]);
   const [succesMessage, setSuccessMessage] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File>();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -55,18 +57,22 @@ const CreateSuggestion: React.FC = () => {
     const { name, description } = formData;
     const genres = selectedGenre;
 
-    const data = {
-      name,
-      description,
-      genres,
-    };
+    const data = new FormData();
+
+    data.append("name", name);
+    data.append("description", description);
+    data.append("genres", genres.join(","));
+
+    if (selectedFile) {
+      data.append("image", selectedFile);
+    }
 
     await api.post("suggestion", data);
 
     setSuccessMessage(true);
 
     setTimeout(() => {
-      history.push("/watched");
+      history.push("/suggestions-list");
     }, 3000);
   };
 
@@ -83,6 +89,8 @@ const CreateSuggestion: React.FC = () => {
 
         <form onSubmit={handleSubmit}>
           <h1>Indique um filme</h1>
+
+          <Dropzone onFileUploaded={setSelectedFile} />
 
           <fieldset>
             <legend>
