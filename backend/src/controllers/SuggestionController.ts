@@ -3,7 +3,9 @@ import knex from "../database/connection";
 
 class SuggestionController {
   async index(req: Request, res: Response) {
-    const suggestions = await knex("movie_suggestion").select("*");
+    const suggestions = await knex("movie_suggestion")
+      .select("*")
+      .where("watched", 0);
 
     const genres = await knex("genres").join(
       "suggestion_genres",

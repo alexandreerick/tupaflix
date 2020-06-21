@@ -45,7 +45,73 @@
   max-width: 1200px;
   background: #302f2f;
   border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+  list-style: none;
+}
+
+.grid-list li {
+  background: #1a1a1a;
+  /* height: 450px; */
+  border-radius: 8px;
+  margin-top: 64px;
+  padding: 32px 24px;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-image {
+  width: 100%;
+}
+
+.card-image img {
+  width: 200px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-title {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  color: var(--title-color);
+}
+
+.card-description {
+  margin-top: 10px;
+}
+
+.card-info {
+  text-align: center;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  max-height: 50px;
+  min-width: 150px;
+  padding: 5px 0;
+}
+
+.card-buttons2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card-buttons2 svg {
+  cursor: pointer;
 }

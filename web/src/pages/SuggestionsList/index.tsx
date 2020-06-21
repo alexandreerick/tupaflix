@@ -11,6 +11,7 @@ interface Suggestions {
   image_url: string;
   name: string;
   description: string;
+  watched: boolean;
   s_genres: {
     title: string;
   }[];
@@ -37,8 +38,16 @@ const SuggestionsList: React.FC = () => {
     }
   };
 
-  const handleAcceptSuggestion = () => {
-    console.log("Você clicou no V verde");
+  const handleAcceptSuggestion = async (id: number) => {
+    try {
+      await api.put(`suggestion/${id}`);
+
+      setSuggestionItems(
+        suggestionItems.filter((suggestionItem) => suggestionItem.id !== id)
+      );
+    } catch (err) {
+      alert("Erro ao deletar a sugestão, tente novamente.");
+    }
   };
 
   return (
@@ -82,7 +91,7 @@ const SuggestionsList: React.FC = () => {
                       color="#dc2e39"
                     />
                     <FiCheck
-                      onClick={handleAcceptSuggestion}
+                      onClick={() => handleAcceptSuggestion(suggestionItem.id)}
                       size={25}
                       color="#34cb79"
                     />
