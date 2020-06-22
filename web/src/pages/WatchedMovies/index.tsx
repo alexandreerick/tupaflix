@@ -41,43 +41,45 @@ const WatchedMovies: React.FC = () => {
     <div id="page-watched-movies">
       <div className="container">
         <header>
-          <img src={logo} alt="Tupã" />
           <Link to="/">
+            <img src={logo} alt="Tupã" />
+          </Link>
+          <Link to="/suggestions-list">
             <FiArrowLeft />
-            Voltar para home
+            Voltar para sugestões
           </Link>
         </header>
+      </div>
 
-        <div className="list-movies">
-          <h1>Assistidos</h1>
-          <ul className="grid-list">
-            {watchedMovies.map((watchedMovie) => (
-              <li key={watchedMovie.id}>
-                <div className="card-image">
-                  <img src={watchedMovie.image_url} alt={watchedMovie.name} />
+      <div className="list-movies">
+        <h1>Assistidos</h1>
+        <ul className="grid-list">
+          {watchedMovies.map((watchedMovie) => (
+            <li key={watchedMovie.id}>
+              <div className="card-image">
+                <img src={watchedMovie.image_url} alt={watchedMovie.name} />
+              </div>
+              <div className="card-content">
+                <p className="card-title">{watchedMovie.name}</p>
+                <p className="card-description">{watchedMovie.description}</p>
+                <div className="card-info">
+                  <p>
+                    {watchedMovie.s_genres
+                      .map((genre) => genre.title)
+                      .join(", ")}
+                  </p>
                 </div>
-                <div className="card-content">
-                  <p className="card-title">{watchedMovie.name}</p>
-                  <p className="card-description">{watchedMovie.description}</p>
-                  <div className="card-info">
-                    <p>
-                      {watchedMovie.s_genres
-                        .map((genre) => genre.title)
-                        .join(", ")}
-                    </p>
-                  </div>
-                  <div className="card-buttons2">
-                    <FiTrash2
-                      onClick={() => handleDeleteWatched(watchedMovie.id)}
-                      size={25}
-                      color="#dc2e39"
-                    />
-                  </div>
+                <div className="card-buttons2">
+                  <FiTrash2
+                    onClick={() => handleDeleteWatched(watchedMovie.id)}
+                    size={25}
+                    color="#dc2e39"
+                  />
                 </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

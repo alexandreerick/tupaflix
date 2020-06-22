@@ -119,7 +119,7 @@
 
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 16px;
   list-style: none;
 }
@@ -151,4 +151,20 @@
 .items-grid li.selected {
   background: #f17a82;
   border: 2px solid #dc2e39;
+}
+
+@media (max-width: 400px) {
+  #page-create-suggestion form h1 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 460px) {
+  #page-create-suggestion form legend {
+    flex-wrap: wrap;
+  }
+
+  #page-create-suggestion form legend span {
+    margin-top: 10px;
+  }
 }

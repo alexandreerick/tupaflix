@@ -4,7 +4,6 @@
 
 #page-watched-movies .container {
   width: 100%;
-  height: 100%;
   max-width: 1200px;
   margin: 0 auto;
   /* padding: 0 30px; */
@@ -21,7 +20,7 @@
   align-items: center;
 }
 
-#page-watched-movies header img {
+#page-watched-movies header a img {
   width: 200px;
 }
 
@@ -39,7 +38,7 @@
   color: var(--primary-color);
 }
 
-#page-watched-movies .container .list-movies {
+#page-watched-movies .list-movies {
   margin: 80px auto;
   padding: 64px;
   max-width: 1200px;
@@ -50,16 +49,15 @@
   flex-direction: column;
 }
 
-.grid-list {
+#page-watched-movies .list-movies .grid-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 26px;
   list-style: none;
 }
 
-.grid-list li {
+#page-watched-movies .list-movies .grid-list li {
   background: #1a1a1a;
-  /* height: 450px; */
   border-radius: 8px;
   margin-top: 64px;
   padding: 32px 24px;

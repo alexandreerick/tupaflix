@@ -54,53 +54,50 @@ const SuggestionsList: React.FC = () => {
     <div id="page-suggestions-list">
       <div className="container">
         <header>
-          <img src={logo} alt="Tupã" />
+          <Link to="/">
+            <img src={logo} alt="Tupã" />
+          </Link>
           <Link to="/watched">
             Ir para filmes assistidos
             <FiArrowRight />
           </Link>
         </header>
+      </div>
 
-        <div className="list-movies">
-          <h1>Sugestões</h1>
-          <ul className="grid-list">
-            {suggestionItems.map((suggestionItem) => (
-              <li key={suggestionItem.id}>
-                <div className="card-image">
-                  <img
-                    src={suggestionItem.image_url}
-                    alt={suggestionItem.name}
+      <div className="list-movies">
+        <h1>Sugestões</h1>
+        <ul className="grid-list">
+          {suggestionItems.map((suggestionItem) => (
+            <li key={suggestionItem.id}>
+              <div className="card-image">
+                <img src={suggestionItem.image_url} alt={suggestionItem.name} />
+              </div>
+              <div className="card-content">
+                <p className="card-title">{suggestionItem.name}</p>
+                <p className="card-description">{suggestionItem.description}</p>
+                <div className="card-info">
+                  <p>
+                    {suggestionItem.s_genres
+                      .map((genre) => genre.title)
+                      .join(", ")}
+                  </p>
+                </div>
+                <div className="card-buttons">
+                  <FiTrash2
+                    onClick={() => handleDeleteSuggestion(suggestionItem.id)}
+                    size={25}
+                    color="#dc2e39"
+                  />
+                  <FiCheck
+                    onClick={() => handleAcceptSuggestion(suggestionItem.id)}
+                    size={25}
+                    color="#34cb79"
                   />
                 </div>
-                <div className="card-content">
-                  <p className="card-title">{suggestionItem.name}</p>
-                  <p className="card-description">
-                    {suggestionItem.description}
-                  </p>
-                  <div className="card-info">
-                    <p>
-                      {suggestionItem.s_genres
-                        .map((genre) => genre.title)
-                        .join(", ")}
-                    </p>
-                  </div>
-                  <div className="card-buttons">
-                    <FiTrash2
-                      onClick={() => handleDeleteSuggestion(suggestionItem.id)}
-                      size={25}
-                      color="#dc2e39"
-                    />
-                    <FiCheck
-                      onClick={() => handleAcceptSuggestion(suggestionItem.id)}
-                      size={25}
-                      color="#34cb79"
-                    />
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
