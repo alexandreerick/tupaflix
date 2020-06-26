@@ -1,4 +1,10 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  FormEvent,
+} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import api from "../../services/api";
@@ -25,10 +31,12 @@ const CreateSuggestion: React.FC = () => {
     description: "",
   });
 
+  const submitButton = useRef<HTMLButtonElement>(null);
+
   const history = useHistory();
 
   useEffect(() => {
-    api.get("genres").then((response) => {
+    api.get("/genres").then((response) => {
       setGenres(response.data);
     });
   }, []);
@@ -53,6 +61,7 @@ const CreateSuggestion: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    submitButton.current?.setAttribute("disabled", "disabled");
 
     const { name, description } = formData;
     const genres = selectedGenre;
@@ -104,17 +113,19 @@ const CreateSuggestion: React.FC = () => {
                 name="name"
                 id="name"
                 onChange={handleInputChange}
+                required
               />
             </div>
 
             <div className="field">
               <label htmlFor="description">Breve descrição do filme</label>
               <input
-                maxLength={75}
+                maxLength={200}
                 type="text"
                 name="description"
                 id="description"
                 onChange={handleInputChange}
+                required
               ></input>
             </div>
           </fieldset>
@@ -139,7 +150,9 @@ const CreateSuggestion: React.FC = () => {
             </ul>
           </fieldset>
 
-          <button>CADASTRAR INDICAÇÃO</button>
+          <button ref={submitButton} type="submit">
+            CADASTRAR INDICAÇÃO
+          </button>
         </form>
       </div>
 

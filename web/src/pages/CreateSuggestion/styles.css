@@ -113,6 +113,10 @@
   cursor: pointer;
 }
 
+#page-create-suggestion form button:disabled {
+  cursor: not-allowed;
+}
+
 #page-create-suggestion form button:hover {
   background: #ad2b34;
 }

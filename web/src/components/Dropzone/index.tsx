@@ -9,6 +9,7 @@ interface Props {
 }
 
 const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
+  const maxSize = 1048576;
   const [selectedFileUrl, setSelectedFileUrl] = useState("");
 
   const onDrop = useCallback(
@@ -22,14 +23,25 @@ const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
     },
     [onFileUploaded]
   );
-  const { getRootProps, getInputProps } = useDropzone({
+
+  const {
+    getRootProps,
+    getInputProps,
+    isDragReject,
+    fileRejections,
+  } = useDropzone({
     onDrop,
-    accept: "image/*",
+    accept: ".jpg, .png, .jpeg",
+    minSize: 0,
+    maxSize: 1048576,
   });
+
+  const isFileTooLarge =
+    fileRejections.length > 0 && fileRejections[0].file.size > maxSize;
 
   return (
     <div className="dropzone" {...getRootProps()}>
-      <input {...getInputProps()} accept="image/*" />
+      <input {...getInputProps()} required />
 
       {selectedFileUrl ? (
         <img src={selectedFileUrl} alt="ImageDropzone" />
@@ -37,6 +49,8 @@ const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
         <p>
           <FiUpload />
           Imagem/Poster do filme
+          {isDragReject && " / Tipo de arquivo inválido"}
+          {isFileTooLarge && " / Arquivo muito grande!"}
         </p>
       )}
     </div>

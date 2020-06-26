@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiArrowRight, FiTrash2, FiCheck } from "react-icons/fi";
+import { FiArrowRight, FiTrash2, FiCheck, FiLoader } from "react-icons/fi";
 import api from "../../services/api";
 
 import logo from "../../assets/logo.png";
@@ -19,9 +19,11 @@ interface Suggestions {
 
 const SuggestionsList: React.FC = () => {
   const [suggestionItems, setSuggestionItems] = useState<Suggestions[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api.get("suggestion").then((response) => {
+      setLoading(false);
       setSuggestionItems(response.data.serializedFinal);
     });
   }, []);
@@ -66,38 +68,49 @@ const SuggestionsList: React.FC = () => {
 
       <div className="list-movies">
         <h1>Sugestões</h1>
-        <ul className="grid-list">
-          {suggestionItems.map((suggestionItem) => (
-            <li key={suggestionItem.id}>
-              <div className="card-image">
-                <img src={suggestionItem.image_url} alt={suggestionItem.name} />
-              </div>
-              <div className="card-content">
-                <p className="card-title">{suggestionItem.name}</p>
-                <p className="card-description">{suggestionItem.description}</p>
-                <div className="card-info">
-                  <p>
-                    {suggestionItem.s_genres
-                      .map((genre) => genre.title)
-                      .join(", ")}
+        {loading ? (
+          <div className="loading">
+            <FiLoader />
+          </div>
+        ) : (
+          <ul className="grid-list">
+            {suggestionItems.map((suggestionItem) => (
+              <li key={suggestionItem.id}>
+                <div className="card-image">
+                  <img
+                    src={suggestionItem.image_url}
+                    alt={suggestionItem.name}
+                  />
+                </div>
+                <div className="card-content">
+                  <p className="card-title">{suggestionItem.name}</p>
+                  <p className="card-description">
+                    {suggestionItem.description}
                   </p>
+                  <div className="card-info">
+                    <p>
+                      {suggestionItem.s_genres
+                        .map((genre) => genre.title)
+                        .join(", ")}
+                    </p>
+                  </div>
+                  <div className="card-buttons">
+                    <FiTrash2
+                      onClick={() => handleDeleteSuggestion(suggestionItem.id)}
+                      size={25}
+                      color="#dc2e39"
+                    />
+                    <FiCheck
+                      onClick={() => handleAcceptSuggestion(suggestionItem.id)}
+                      size={25}
+                      color="#34cb79"
+                    />
+                  </div>
                 </div>
-                <div className="card-buttons">
-                  <FiTrash2
-                    onClick={() => handleDeleteSuggestion(suggestionItem.id)}
-                    size={25}
-                    color="#dc2e39"
-                  />
-                  <FiCheck
-                    onClick={() => handleAcceptSuggestion(suggestionItem.id)}
-                    size={25}
-                    color="#34cb79"
-                  />
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

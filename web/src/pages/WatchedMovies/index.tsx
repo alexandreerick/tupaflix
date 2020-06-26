@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FiArrowLeft, FiTrash2 } from "react-icons/fi";
+import { FiArrowLeft, FiTrash2, FiLoader } from "react-icons/fi";
 import api from "../../services/api";
 
 import logo from "../../assets/logo.png";
@@ -18,9 +18,11 @@ interface WatchedMovies {
 
 const WatchedMovies: React.FC = () => {
   const [watchedMovies, setWatchedMovies] = useState<WatchedMovies[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api.get("watched-movie").then((response) => {
+      setLoading(false);
       setWatchedMovies(response.data.serializedFinal);
     });
   }, []);
@@ -53,33 +55,39 @@ const WatchedMovies: React.FC = () => {
 
       <div className="list-movies">
         <h1>Assistidos</h1>
-        <ul className="grid-list">
-          {watchedMovies.map((watchedMovie) => (
-            <li key={watchedMovie.id}>
-              <div className="card-image">
-                <img src={watchedMovie.image_url} alt={watchedMovie.name} />
-              </div>
-              <div className="card-content">
-                <p className="card-title">{watchedMovie.name}</p>
-                <p className="card-description">{watchedMovie.description}</p>
-                <div className="card-info">
-                  <p>
-                    {watchedMovie.s_genres
-                      .map((genre) => genre.title)
-                      .join(", ")}
-                  </p>
+        {loading ? (
+          <div className="loading">
+            <FiLoader />
+          </div>
+        ) : (
+          <ul className="grid-list">
+            {watchedMovies.map((watchedMovie) => (
+              <li key={watchedMovie.id}>
+                <div className="card-image">
+                  <img src={watchedMovie.image_url} alt={watchedMovie.name} />
                 </div>
-                <div className="card-buttons2">
-                  <FiTrash2
-                    onClick={() => handleDeleteWatched(watchedMovie.id)}
-                    size={25}
-                    color="#dc2e39"
-                  />
+                <div className="card-content">
+                  <p className="card-title">{watchedMovie.name}</p>
+                  <p className="card-description">{watchedMovie.description}</p>
+                  <div className="card-info">
+                    <p>
+                      {watchedMovie.s_genres
+                        .map((genre) => genre.title)
+                        .join(", ")}
+                    </p>
+                  </div>
+                  <div className="card-buttons2">
+                    <FiTrash2
+                      onClick={() => handleDeleteWatched(watchedMovie.id)}
+                      size={25}
+                      color="#dc2e39"
+                    />
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

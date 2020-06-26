@@ -49,6 +49,25 @@
   flex-direction: column;
 }
 
+#page-watched-movies .list-movies .loading svg {
+  color: #fff;
+  font-size: 40px;
+  margin-top: 16px;
+  animation-name: spin;
+  animation-duration: 1500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 #page-watched-movies .list-movies .grid-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
